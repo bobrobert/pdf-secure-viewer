@@ -1,0 +1,217 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="jquery.min.js"></script>
+  <script src="app.js"></script>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+</head>
+
+<!--<body id="body" onselectstart="return false" oncontextmenu="return false" ondragstart="return false"
+  oncopy="return false" oncut="return false" onpaste="return false">-->
+
+<body id="body">
+
+  <h3>Test VitalSign api</h3>
+  <h4>
+    <a href="http://localhost:3003/apidoc/index.html">Doc api</a>
+  </h4>
+  <div id="tabs">
+    <ul>
+      <li><a href="#" rel="url1" onClick="selectTab(0)" class="tab_item">Ajout de fichier</a></li>
+      <li><a href="#" rel="url2" onClick="selectTab(1)" class="tab_item"> Signature</a></li>
+      <li><a href="#" rel="url2" onClick="selectTab(2)" class="tab_item">Certificat</a></li>
+      <li><a href="#" rel="url2" onClick="selectTab(3)" class="tab_item">Viewer</a></li>
+      <li><a href="#" rel="url2" onClick="selectTab(4)" class="tab_item">Pdf To Png</a></li>
+    </ul>
+  </div>
+
+
+  <div id="attach">
+    <h4>Ajouter des documents dans un pdf </h4>
+    Choisir le pdf :
+    <input type="file" onchange="handleFiles(this.files, 'viewer','attachPdf')" accept="application/pdf" />
+    <br /><br /><br />
+    Fichiers à ajouter ans le pdf :
+    <input type="file" id="addFile" multiple onchange="handleFiles(this.files, 'add')"
+      accept="application/pdf,image/*" />
+
+    <br />
+    <div id="attachPdf" style="display:none;
+                height: 600px;
+                margin:auto 20%">
+      Page <span id="page_num"></span> / <span id="page_count"></span>
+
+      <div id="viewer_page" style="overflow: auto;
+                 height:100%;
+                 border: 1px solid #e2e2e2;
+                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+                 background: #dedede"></div>
+      <br />
+      <button onClick="attachDoc(event)">Valider</button>
+      <a id="download" href="#" style="display: none;">Download</a>
+
+    </div>
+
+  </div>
+
+
+
+  <div id="sign">
+    <h3>Signature manuscrite pdf</h3>
+
+    <form action="#" onsubmit="signDoc(event)" class="form-example">
+      <label for="file">Choisir le pdf à signer : </label>
+      <input type="file" name="file" id="file" onchange="handleFiles(this.files, 'viewer', 'viewerSignPdf')"
+        accept="application/pdf" />
+      <br />
+      <div class="form-example">
+        <label for="firstName">Prénom du signataire : </label>
+        <input type="text" name="firstName" id="firstName" required>
+      </div>
+      <div class="form-example">
+        <label for="lastName">Nom du signataire : </label>
+        <input type="text" name="lastName" id="lastName" required>
+      </div>
+      <div class="form-example">
+        <input type="submit" name="signer" value="Signer le document">
+        <input type="submit" name="tester" value="Tester le document">
+      </div>
+    </form>
+    <div id="viewerSignPdf" style="display:none;
+                height: 600px;
+                margin:auto 20%">
+      Page <span id="page_num"></span> / <span id="page_count"></span>
+
+      <div id="viewer_page" style="overflow: auto;
+                 height:100%;
+                 border: 1px solid #e2e2e2;
+                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+                 background: #dedede"></div>
+      <a id="download" href="#" style="display: none;">Download</a>
+    </div>
+    <div id="nbSign" style="text-align: left;width:90%; margin: 10px auto"></div>
+
+  </div>
+
+
+
+  <div id="certif" class="container">
+    <h3>Génération du certificat pkcs12</h3>
+    <br />
+    <form action="" method="get" onsubmit="creatCert(event)" class="form-example"
+      style="width: 60%;margin: 0 auto;">
+      <div class="form-example">
+        <label for="name">Prénom Nom : </label>
+        <input type="text" name="name" id="name" required>
+      </div>
+      <br/>
+      <div class="form-example">
+        <label for="email">Email : </label>
+        <input type="text" name="email" id="email" required>
+      </div>
+      <br/>
+      <div class="form-example">
+        <label for="phone">Mobile : </label>
+        <input type="text" name="phone" id="phone" >
+      </div>
+      <br/>
+      <div class="form-example">
+        <label for="otp">Code OTP : </label>
+        <input type="text" name="otp" id="otp" required>
+      </div>
+      <br/>
+      <div class="form-example">
+        <input type="submit" value="Générer">
+      </div>
+    </form>
+    <div id="cert" 
+    style="height: 379px;
+    width: 920px;
+    margin: 10 auto;
+    overflow-y: scroll;
+    word-break: break-all;"
+></div>
+    <a id="download" href="#" style="display: none;">Download</a>
+
+  </div>
+
+
+
+  <div id="viewer">
+    <!--<iframe  style="width:100%;height:650px" src="https://pdf-viewer.deepblock.io/viewer?file=https://we2.sqwhere.net/images/landscape.pdf" ></iframe>-->
+    <iframe  style="width:80%;height:650px" src="http://api.picardev.fr:3000/viewer?file=http://api.picardev.fr:3000/viewer/test-sfr.pdf" ></iframe>
+    
+<!--    <iframe  style="width:100%;height:650px" src="http://localhost:3000/viewer?file=https://sqwhere.fr/livrables/pdf/Ermewa_P1_Initial_09-01-2020_15-23_Tout.pdf" ></iframe>-->
+    <!--<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+    <h3>viewer pdf</h3>
+    <br />
+    <form action="" method="get" class="form-example">
+      <label for="file">Choisir le pdf à visualiser : </label>
+      <input type="file" name="file" id="file" onchange="handleFiles(this.files, 'viewer','viewerPdf')"
+        accept="application/pdf" />
+      <br />
+      <br />
+    </form>
+    <div id="viewerPdf" style="display:none;
+                height: 650px;
+                margin:auto 20%">
+      Page <span id="page_num"></span> / <span id="page_count"></span>
+
+      <div id="viewer_page" style="overflow: auto;
+                 height:100%;
+                 border: 1px solid #e2e2e2;
+                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+                 background: #dedede"></div>
+    </div>
+  -->
+  </div>
+
+
+  <div id="pdf_to_png" >
+
+    <h3>Pdf to Png</h3>
+    <br />
+    <form action="" method="get" class="form-example">
+      <label for="file">Choisir le pdf à convertir : </label>
+      <input type="file" name="file" id="file" onchange="handleFiles(this.files, 'viewer', 'viewerPdftoPng')"
+        accept="application/pdf" />
+      <br />
+      <button onClick="convert(event)">Convertir le pdf</button>
+      <br />
+
+    </form>
+    <div id="viewerPdftoPng" style="
+              
+              height: 650px;
+              margin:auto 20%" >
+      Page <span id="page_num"></span> / <span id="page_count"></span>
+      
+<!--      <div id="window"   style="display:none;position:absolute;left:0;top:0;width:200;height:200;border:2px solid #000; border-radius:50%">
+            <img id="window-img" src ="" style="border-radius:50%"/>
+-->
+        <span id="value">dd</span>
+
+      <div id="viewer_page" style="overflow-y: auto;overflow-x:hidden;
+            position:relative;
+               height:100%;
+               border: 1px solid #e2e2e2;
+               box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+               background: #dedede;
+               margin:0 auto;
+               width:940px;
+               z-index:999;
+               color:transparent"
+               onmouseenter="windowOn()"
+               onmouseleave="windowOff()">
+            
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+
+html {
+  height: 100%;
+  width: 100%;
+  
+  /* Font size is needed to make the activity bar the correct size. */
+  font-size: 10px;
+}
+
+body {
+/*  height: 100%;
+  width: 100%;
+  */
+  user-select: none;
+  background-color: white;
+}
+
+#viewer {
+  display: none;
+  flex-direction: column;
+  font-size:1.4em;
+  height:100%;
+  justify-content: center;
+  text-align: center
+  max-width:100%;
+}
+
+#viewer_page {
+  overflow: auto;
+  text-align: center;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+ background: #dedede;
+ max-width:100%;
+}
+
+#window{
+  position :absolute;
+  right:0;
+  left:0;
+  margin:10px auto;
+  height : 150px;
+  border : 1px solid #e2e2e2;
+  max-width: 100%;
+  z-index:999;
+  display:none;
+  
+}
+.page-viewer{
+  max-width: 100%;
+
+}
+img {
+  max-width: 100%;
+}
+#pagenum{
+  display:flex;
+  justify-content: center;
+  font-size:1.2em;
+}

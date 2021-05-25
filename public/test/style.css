@@ -1,0 +1,170 @@
+
+body {
+    background: white;
+    text-align: center;
+  }
+
+  .container {
+    display:none;
+    height: 650px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    margin:auto 20%;
+  }
+  iframe{
+    width:90%; 
+    margin:0 auto;
+    height:400px;
+   
+  }
+  .imgContainer{
+    width:90%; 
+    margin:0 auto;
+    height:400px;
+    overflow: auto;
+  }
+
+
+  .listFiles {
+    width: 80%;
+    height: 300px;
+    border: 2px solid #dedede;
+    margin:auto;
+  }
+
+  input {
+    width: 300px;
+  }
+
+
+#tabs ul
+{
+    font: normal 14px arial, sans, sans-serif;
+    -list-style-type: none;
+    border-bottom: 1px solid gray;
+    margin: 0;
+    padding-left:0;
+    padding-right:0;
+    padding-bottom: 26px;
+}
+
+#tabs ul li 
+{
+    display: inline;
+    float: left;
+    height: 24px;
+    min-width:80px;
+    text-align:center;
+    padding:0;
+    margin: 1px 0px 0px 0px;
+    border: 1px solid gray;
+}
+
+#tabs ul li.selected 
+{
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+}
+
+
+#tabs ul li a 
+{
+    float: left;
+    color: #666;
+    text-decoration: none;
+    padding: 4px;
+    text-align:center;
+    background-color:#eee;
+    min-width:80px;
+    border-bottom: 1px solid gray;
+}
+
+#tabs ul li a.selected
+{
+    color: #000;
+    font-weight:bold;
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+#tabs ul li a:hover
+{
+    color: #000;
+    font-weight:bold;
+    background-color: #fff;
+}
+
+
+/*======================
+  viewer
+=======================*/
+.viewer_container {
+  position:relative;
+  height:484px; 
+  overflow: auto;
+}
+.viewer {
+  height:100%; 
+  width:100%;
+}
+.top-bar {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+.btn {
+  background: coral;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.7rem 2rem;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+.btn_active {
+  background:black!important;
+  color:white!important;
+}
+
+.page-info {
+  margin-left: 1rem;
+}
+
+.error {
+  background: orangered;
+  color: #fff;
+  padding: 1rem;
+}
+
+.floutage{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0 20px 0 0;
+}
+.floutage_top, .floutage_bottom{
+  height:40%;
+  width:100%;
+}
+.visuel{
+  height:20%;
+}
+
+.blur {
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(8px); 
+  width: 100%;
+}
+
+#viewercontent{
+  display:flex;
+  flex-direction: column;
+}
